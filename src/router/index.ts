@@ -36,7 +36,7 @@ const routes: RouteRecordRaw[] = [
                 path: '/user_task',
                 name: 'user_task',
                 meta: {
-                    title: '图片管理',
+                    title: '用户任务管理',
                     permiss: '2',
                 },
                 component: () => import(/* webpackChunkName: "table" */ '../views/user_task.vue'),
@@ -45,7 +45,7 @@ const routes: RouteRecordRaw[] = [
                 path: '/picture_task',
                 name: 'picture_task',
                 meta: {
-                    title: '用户任务管理',
+                    title: '数据管理',
                     permiss: '2',
                 },
                 component: () => import(/* webpackChunkName: "table" */ '../views/picture_task.vue'),
@@ -72,7 +72,7 @@ const routes: RouteRecordRaw[] = [
                 path: '/tabs',
                 name: 'tabs',
                 meta: {
-                    title: 'tab标签',
+                    title: '论坛',
                     permiss: '3',
                 },
                 component: () => import(/* webpackChunkName: "tabs" */ '../views/tabs.vue'),
@@ -87,15 +87,6 @@ const routes: RouteRecordRaw[] = [
                 component: () => import(/* webpackChunkName: "donate" */ '../views/donate.vue'),
             },
             {
-                path: '/permission',
-                name: 'permission',
-                meta: {
-                    title: '权限管理',
-                    permiss: '13',
-                },
-                component: () => import(/* webpackChunkName: "permission" */ '../views/permission.vue'),
-            },
-            {
                 path: '/upload',
                 name: 'upload',
                 meta: {
@@ -105,13 +96,13 @@ const routes: RouteRecordRaw[] = [
                 component: () => import(/* webpackChunkName: "upload" */ '../views/upload.vue'),
             },
             {
-                path: '/icon',
-                name: 'icon',
+                path: '/chat',
+                name: 'chat',
                 meta: {
-                    title: '自定义图标',
-                    permiss: '10',
+                    title: '私信',
+                    permiss: '11',
                 },
-                component: () => import(/* webpackChunkName: "icon" */ '../views/icon.vue'),
+                component: () => import(/* webpackChunkName: "chat" */ '../views/chat.vue'),
             },
             {
                 path: '/user',

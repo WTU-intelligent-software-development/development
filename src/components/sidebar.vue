@@ -4,7 +4,7 @@
             class="sidebar-el-menu"
             :default-active="onRoutes"
             :collapse="sidebar.collapse"
-            background-color="#324157"
+            background-color="#9AB398"
             text-color="#bfcbd9"
             active-text-color="#20a0ff"
             unique-opened
@@ -80,7 +80,7 @@ const items = [
             },
             {
                 index: '/picture_task',
-                title: '图片管理',
+                title: '数据管理',
                 permiss: '2',
             },
         ],
@@ -126,24 +126,24 @@ const items = [
             },
         ],
     },
-    {
-        icon: 'Setting',
-        index: '/icon',
-        title: '聊天',
-        permiss: '10',
-    },
+    // {
+    //     icon: 'Warning',
+    //     index: '/chat',
+    //     title: '私信',
+    //     permiss: '11',
+    // },
     // {
     //     icon: 'PieChart',
     //     index: '/charts',
     //     title: 'schart图表',
     //     permiss: '11',
-    // },
-    // {
-    //     icon: 'Warning',
-    //     index: '/permission',
-    //     title: '权限管理',
-    //     permiss: '13',
-    // },
+    // }
+    {
+        icon: 'Warning',
+        index: '/chat',
+        title: '私信',
+        permiss: '13',
+    },
     // {
     //     icon: 'CoffeeCup',
     //     index: '/donate',
