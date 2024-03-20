@@ -24,7 +24,7 @@
 				<el-card shadow="hover">
 					<template #header>
 						<div class="clearfix">
-							<span>账户编辑</span>
+							<span>修改密码</span>
 						</div>
 					</template>
 					<el-form label-width="90px">
@@ -78,7 +78,7 @@ const name = localStorage.getItem('ms_username');
 const form = reactive({
 	old: '',
 	new: '',
-	desc: '不可能！我的代码怎么可能会有bug！'
+	desc: '无'
 });
 const onSubmit = () => {};
 
