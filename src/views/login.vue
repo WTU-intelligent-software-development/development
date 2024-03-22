@@ -20,6 +20,7 @@
             <input type="password" placeholder="密码" v-model="form.userpwd">
             <span class="errTips" v-if="emailError">* 密码填写错误 *</span>
           </div>
+          <el-checkbox class="login-tips" v-model="checked" label="记住密码" size="large" />
           <button class="bbutton" @click="login">登录</button>
         </div>
       </div>
@@ -40,11 +41,13 @@
 </template>
 
 <script>
-import {useRouter} from 'vue-router';
+import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
 import { usePermissStore } from '../store/permiss';
 import { ElMessage } from 'element-plus';
 const router = useRouter();
 const permiss = usePermissStore();
+const lgStr = localStorage.getItem('login-param');
 
 export default {
   name: 'login-register',
