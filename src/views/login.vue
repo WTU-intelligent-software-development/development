@@ -21,21 +21,21 @@
             <span class="errTips" v-if="emailError">* 密码填写错误 *</span>
           </div>
           <div class="role-select">
-              <label>
-                <input type="radio" v-model="form.selectedRole" value="修复师"> 修复师
-              </label>
-              <label>
-                <input type="radio" v-model="form.selectedRole" value="管理员"> 管理员
-              </label>
-              <label>
-                <input type="radio" v-model="form.selectedRole" value="审核员"> 审核员
-              </label>
-            </div>
+            <label>
+              <input type="radio" v-model="form.selectedRole" value="修复师"> 修复师
+            </label>
+            <label>
+              <input type="radio" v-model="form.selectedRole" value="管理员"> 管理员
+            </label>
+            <label>
+              <input type="radio" v-model="form.selectedRole" value="审核员"> 审核员
+            </label>
+          </div>
 
           <el-checkbox class="login-tips" v-model="checked" label="记住密码" size="large" />
-  
+
           <button class="bbutton" @click="login">登录</button>
-        
+
         </div>
       </div>
       <div class="small-box" :class="{active:isLogin}">
@@ -86,7 +86,7 @@ export default {
       this.form.useremail = ''
       this.form.userpwd = ''
       this.form.selectedRole=''
-      
+
     },
     login() {
       const self = this;
@@ -103,7 +103,7 @@ export default {
         else if (self.form.selectedRole=='审核员'){
           this.$router.push('/manager_views');
         }
-        
+
 
         // self.$axios({
         //   method: 'post',
@@ -139,7 +139,7 @@ export default {
       {
         ElMessage.error("填写不能为空！");
       }else
-       {
+      {
         ElMessage.error("用户账号或密码填写错误！");
       }
     },
