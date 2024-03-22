@@ -6,15 +6,7 @@
 		<el-form-item label="用户账号" prop="money">
 			<el-input v-model.number="form.money"></el-input>
 		</el-form-item>
-		<el-form-item label="是否审核" prop="address">
-			<el-switch
-				v-model="form.address"
-				:active-value="1"
-				:inactive-value="0"
-				active-text="审核"
-				inactive-text="未审核"
-			></el-switch>
-		</el-form-item>
+
 		<el-form-item label="是否提交" prop="state">
 			<el-switch
 				v-model="form.state"
@@ -23,6 +15,14 @@
 				active-text="是"
 				inactive-text="否"
 			></el-switch>
+		</el-form-item>
+		<el-form-item label="审核情况" prop="address">
+			<select v-model="form.state">
+  			<option disabled value="">请选择</option>
+  			<option>已审核</option>
+  			<option>未审核</option>
+  			<option>返修</option>
+			</select>
 		</el-form-item>
 		<el-form-item label="截止日期" prop="date">
 			<el-date-picker type="date" v-model="form.date" value-format="YYYY-MM-DD"></el-date-picker>

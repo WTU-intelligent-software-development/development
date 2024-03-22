@@ -7,7 +7,7 @@
           <div class="bform">
             <input type="text" placeholder="用户名" v-model="form.username">
             <span class="errTips" v-if="existed">* 用户名已经存在！ *</span>
-            <input type="email" placeholder="邮箱" v-model="form.useremail">
+            <input type="email" placeholder="账号" v-model="form.useremail">
             <input type="password" placeholder="密码" v-model="form.userpwd">
           </div>
           <button class="bbutton" @click="register">注册</button>
@@ -15,13 +15,27 @@
         <div class="big-contain" key="bigContainRegister" v-else>
           <div class="btitle">账户登录</div>
           <div class="bform">
-            <input type="email" placeholder="邮箱" v-model="form.useremail">
-            <span class="errTips" v-if="emailError">* 邮箱填写错误 *</span>
+            <input type="email" placeholder="账号" v-model="form.useremail">
+            <span class="errTips" v-if="emailError">* 账号填写错误 *</span>
             <input type="password" placeholder="密码" v-model="form.userpwd">
             <span class="errTips" v-if="emailError">* 密码填写错误 *</span>
           </div>
+          <div class="role-select">
+              <label>
+                <input type="radio" v-model="form.selectedRole" value="修复师"> 修复师
+              </label>
+              <label>
+                <input type="radio" v-model="form.selectedRole" value="管理员"> 管理员
+              </label>
+              <label>
+                <input type="radio" v-model="form.selectedRole" value="审核员"> 审核员
+              </label>
+            </div>
+
           <el-checkbox class="login-tips" v-model="checked" label="记住密码" size="large" />
+  
           <button class="bbutton" @click="login">登录</button>
+        
         </div>
       </div>
       <div class="small-box" :class="{active:isLogin}">
@@ -60,7 +74,8 @@ export default {
       form: {
         username: '',
         useremail: '',
-        userpwd: ''
+        userpwd: '',
+        selectedRole:''
       }
     }
   },
@@ -70,17 +85,26 @@ export default {
       this.form.username = ''
       this.form.useremail = ''
       this.form.userpwd = ''
+      this.form.selectedRole=''
+      
     },
     login() {
       const self = this;
-      if (self.form.useremail != "" && self.form.userpwd != "") {
+      if (self.form.useremail == "admin" && self.form.userpwd == "123") {
         ElMessage.success('登录成功');
         localStorage.setItem('ms_username', self.form.useremail);
         const keys = permiss.defaultList[self.form.useremail === 'admin' ? 'admin' : 'user'];
         permiss.handleSet(keys);
         localStorage.setItem('ms_keys', JSON.stringify(keys));
-        this.$router.push('/');
-        localStorage.setItem('ms_username', self.form.useremail);
+        localStorage.setItem('ms_role', self.form.selectedRole);
+        if (self.form.selectedRole=='管理员'){
+          this.$router.push('/');
+        }
+        else if (self.form.selectedRole=='审核员'){
+          this.$router.push('/manager_views');
+        }
+        
+
         // self.$axios({
         //   method: 'post',
         //   url: 'http://127.0.0.1:10520/api/user/login',
@@ -111,8 +135,12 @@ export default {
         //       console.log(err);
         //     })
 
-      } else {
-        ElMessage.success("填写不能为空！");
+      } else if (self.form.useremail == "" || self.form.userpwd == "")
+      {
+        ElMessage.error("填写不能为空！");
+      }else
+       {
+        ElMessage.error("用户账号或密码填写错误！");
       }
     },
     register() {
@@ -298,5 +326,12 @@ export default {
   border-bottom-right-radius: inherit;
   transform: translateX(-100%);
   transition: all 1s;
+}
+
+.role-select {
+  display: flex;
+}
+.role-select label {
+  margin-right: 20px;
 }
 </style>

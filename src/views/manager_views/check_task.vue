@@ -34,8 +34,8 @@
 				<el-table-column prop="date" label="截止时间" align="center"></el-table-column>
 				<el-table-column label="操作" width="280" align="center">
 					<template #default="scope">
-						<!-- <el-button type="warning" size="small" :icon="View" @click="handleView(scope.row)">
-							查看
+						<el-button type="warning" size="small" :icon="View" @click="handleView(scope.row)">
+							审核
 						</el-button>
 						<el-button
 							type="primary"
@@ -44,15 +44,15 @@
 							@click="handleEdit(scope.$index, scope.row)"
 							v-permiss="15"
 						>
-							编辑
-						</el-button> -->
+							<!-- 编辑
+						</el-button>
 						<el-button
 							type="danger"
 							size="small"
 							:icon="Delete"
 							@click="handleDelete(scope.$index)"
 							v-permiss="16"
-						>
+						> -->
 							删除
 						</el-button>
 					</template>
@@ -89,9 +89,9 @@
 import { ref, reactive } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { Delete, Edit, Search, CirclePlusFilled, View } from '@element-plus/icons-vue';
-import { fetchData } from '../api/index';
-import TableEdit from '../components/task-edit.vue';
-import TableDetail from '../components/task-detail.vue';
+import { fetchData } from '../../api/index';
+import TableEdit from '../../components/task-edit.vue';
+import TableDetail from '../../components/task-detail.vue';
 
 interface TableItem {
 	id: number;

@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { usePermissStore } from '../store/permiss';
 import Home from '../views/home.vue';
+import Home_ma from '../views/manager_views/home_ma.vue';
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -9,6 +10,7 @@ const routes: RouteRecordRaw[] = [
         path: '/',
         redirect: '/dashboard',
     },
+
     {
         path: '/',
         name: 'Home',
@@ -23,7 +25,7 @@ const routes: RouteRecordRaw[] = [
                 },
                 component: () => import(/* webpackChunkName: "dashboard" */ '../views/dashboard.vue'),
             },
-            {
+           { 
                 path: '/user_message',
                 name: 'user_message',
                 meta: {
@@ -151,6 +153,65 @@ const routes: RouteRecordRaw[] = [
         ],
     },
     {
+        path: '/manager_views/',
+        redirect: '/manager_views/dashboard_ma',
+        meta: {
+            title: '审核员',
+        },
+    },
+    {
+        path: '/manager_views/',
+        name: 'Home_ma',
+        component: Home_ma,
+        children: [
+            {
+                path: '/manager_views/dashboard_ma',
+                name: 'dashboard_ma',
+                meta: {
+                    title: '系统首页',
+                    permiss: '1',
+                },
+                component: () => import(/* webpackChunkName: "dashboard_ma" */ '../views/manager_views/dashboard_ma.vue'),
+            },
+            { 
+                path: '/manager_views/pull_task',
+                name: 'pull_task',
+                meta: {
+                    title: '任务发布',
+                    permiss: '2',
+                },
+                component: () => import(/* webpackChunkName: "pull_task" */ '../views/manager_views/pull_task.vue'),
+            },
+            {
+                path: '/manager_views/tabs',
+                name: 'tabs_ma',
+                meta: {
+                    title: '论坛',
+                    permiss: '3',
+                },
+                component: () => import(/* webpackChunkName: "tabs" */ '../views/manager_views/tabs_ma.vue'),
+            },
+            {
+                path: '/manager_views/chat',
+                name: 'chat_ma',
+                meta: {
+                    title: '私信',
+                    permiss: '4',
+                },
+                component: () => import(/* webpackChunkName: "chat" */ '../views/manager_views/chat_ma.vue'),
+            },
+            {
+                path: '/manager_views/user',
+                name: 'user',
+                meta: {
+                    title: '个人中心',
+                },
+                component: () => import(/* webpackChunkName: "user" */ '../views/manager_views/user.vue'),
+            },
+        ]
+    },
+
+    {
         path: '/login',
         name: 'Login',
         meta: {
@@ -179,7 +240,8 @@ router.beforeEach((to, from, next) => {
     const permiss = usePermissStore();
     if (!role && to.path !== '/login') {
         next('/login');
-    } else if (to.meta.permiss && !permiss.key.includes(to.meta.permiss)) {
+    } 
+     else if (to.meta.permiss && !permiss.key.includes(to.meta.permiss)) {
         // 如果没有权限，则进入403
         next('/403');
     } else {
