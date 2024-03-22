@@ -128,7 +128,7 @@ export default {
         //       switch (res.data) {
         //         case 0:
         //           ElMessage.success("注册成功！");
-        //           this.login();
+        //           this.changeType();
         //           break;
         //         case -1:
         //           this.existed = true;
