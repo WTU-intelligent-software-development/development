@@ -41,7 +41,10 @@
 
 <script>
 import {useRouter} from 'vue-router';
+import { usePermissStore } from '../store/permiss';
+import { ElMessage } from 'element-plus';
 const router = useRouter();
+const permiss = usePermissStore();
 
 export default {
   name: 'login-register',
@@ -68,7 +71,11 @@ export default {
     login() {
       const self = this;
       if (self.form.useremail != "" && self.form.userpwd != "") {
-        alert("登陆成功！");
+        ElMessage.success('登录成功');
+        localStorage.setItem('ms_username', self.form.useremail);
+        const keys = permiss.defaultList[self.form.useremail === 'admin' ? 'admin' : 'user'];
+        permiss.handleSet(keys);
+        localStorage.setItem('ms_keys', JSON.stringify(keys));
         this.$router.push('/');
         // self.$axios({
         //   method: 'post',
@@ -81,8 +88,12 @@ export default {
         //     .then(res => {
         //       switch (res.data) {
         //         case 0:
-        //           alert("登陆成功！");
-        //           this.$router.push('/');
+        //             ElMessage.success('登录成功');
+        //             localStorage.setItem('ms_username', self.form.useremail);
+        //             const keys = permiss.defaultList[self.form.useremail === 'admin' ? 'admin' : 'user'];
+        //             permiss.handleSet(keys);
+        //             localStorage.setItem('ms_keys', JSON.stringify(keys));
+        //             this.$router.push('/');
         //           break;
         //         case -1:
         //           this.emailError = true;
@@ -96,37 +107,39 @@ export default {
         //       console.log(err);
         //     })
       } else {
-        alert("填写不能为空！");
+        ElMessage.success("填写不能为空！");
       }
     },
     register() {
       const self = this;
       if (self.form.username != "" && self.form.useremail != "" && self.form.userpwd != "") {
-        self.$axios({
-          method: 'post',
-          url: 'http://127.0.0.1:10520/api/user/add',
-          data: {
-            username: self.form.username,
-            email: self.form.useremail,
-            password: self.form.userpwd
-          }
-        })
-            .then(res => {
-              switch (res.data) {
-                case 0:
-                  alert("注册成功！");
-                  this.login();
-                  break;
-                case -1:
-                  this.existed = true;
-                  break;
-              }
-            })
-            .catch(err => {
-              console.log(err);
-            })
+        ElMessage.success("注册成功！");
+        this.changeType();
+        // self.$axios({
+        //   method: 'post',
+        //   url: 'http://127.0.0.1:10520/api/user/add',
+        //   data: {
+        //     username: self.form.username,
+        //     email: self.form.useremail,
+        //     password: self.form.userpwd
+        //   }
+        // })
+        //     .then(res => {
+        //       switch (res.data) {
+        //         case 0:
+        //           ElMessage.success("注册成功！");
+        //           this.login();
+        //           break;
+        //         case -1:
+        //           this.existed = true;
+        //           break;
+        //       }
+        //     })
+        //     .catch(err => {
+        //       console.log(err);
+        //     })
       } else {
-        alert("填写不能为空！");
+        ElMessage.success("填写不能为空！");
       }
     }
   }
