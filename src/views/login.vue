@@ -70,6 +70,7 @@ export default {
       if (self.form.useremail != "" && self.form.userpwd != "") {
         alert("登陆成功！");
         this.$router.push('/');
+        localStorage.setItem('ms_username', self.form.useremail);
         // self.$axios({
         //   method: 'post',
         //   url: 'http://127.0.0.1:10520/api/user/login',
@@ -95,6 +96,7 @@ export default {
         //     .catch(err => {
         //       console.log(err);
         //     })
+
       } else {
         alert("填写不能为空！");
       }
