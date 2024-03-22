@@ -1,137 +1,116 @@
 <template>
 	<div class="container">
-		<div class="mgb20">
-			<span class="label">角色：</span>
-			<el-select v-model="role" @change="handleChange">
-				<el-option label="用户" value="admin"></el-option>
-				<el-option label="管理员" value="user"></el-option>
-				<el-option label="修复师" value="user"></el-option>
-			</el-select>
-		</div>
-		<div class="mgb20 tree-wrapper">
-			<el-tree
-				ref="tree"
-				:data="data"
-				node-key="id"
-				default-expand-all
-				show-checkbox
-				:default-checked-keys="checkedKeys"
-			/>
-		</div>
-		<el-button type="primary" @click="onSubmit">保存权限</el-button>
+		<el-tabs v-model="message">
+			<el-tab-pane :label="`未读消息(${state.unread.length})`" name="first">
+				<el-table :data="state.unread" :show-header="false" style="width: 100%">
+					<el-table-column>
+						<template #default="scope">
+							<span class="message-title">{{ scope.row.title }}</span>
+						</template>
+					</el-table-column>
+					<el-table-column prop="date" width="180"></el-table-column>
+					<el-table-column width="120">
+						<template #default="scope">
+							<el-button size="small" @click="handleRead(scope.$index)">标为已读</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
+				<div class="handle-row">
+					<el-button type="primary">全部标为已读</el-button>
+				</div>
+			</el-tab-pane>
+			<el-tab-pane :label="`已读消息(${state.read.length})`" name="second">
+				<template v-if="message === 'second'">
+					<el-table :data="state.read" :show-header="false" style="width: 100%">
+						<el-table-column>
+							<template #default="scope">
+								<span class="message-title">{{ scope.row.title }}</span>
+							</template>
+						</el-table-column>
+						<el-table-column prop="date" width="180"></el-table-column>
+						<el-table-column width="120">
+							<template #default="scope">
+								<el-button type="danger" size="small" @click="handleDel(scope.$index)">删除</el-button>
+							</template>
+						</el-table-column>
+					</el-table>
+					<div class="handle-row">
+						<el-button type="danger">删除全部</el-button>
+					</div>
+				</template>
+			</el-tab-pane>
+			<el-tab-pane :label="`回收站(${state.recycle.length})`" name="third">
+				<template v-if="message === 'third'">
+					<el-table :data="state.recycle" :show-header="false" style="width: 100%">
+						<el-table-column>
+							<template #default="scope">
+								<span class="message-title">{{ scope.row.title }}</span>
+							</template>
+						</el-table-column>
+						<el-table-column prop="date" width="180"></el-table-column>
+						<el-table-column width="120">
+							<template #default="scope">
+								<el-button size="small" @click="handleRestore(scope.$index)">还原</el-button>
+							</template>
+						</el-table-column>
+					</el-table>
+					<div class="handle-row">
+						<el-button type="danger">清空回收站</el-button>
+					</div>
+				</template>
+			</el-tab-pane>
+		</el-tabs>
 	</div>
 </template>
 
-<script setup lang="ts" name="permission">
-import { ref } from 'vue';
-import { ElTree } from 'element-plus';
-import { usePermissStore } from '../store/permiss';
+<script setup lang="ts" name="tabs">
+import { ref, reactive } from 'vue';
 
-const role = ref<string>('admin');
+const message = ref('first');
+const state = reactive({
+	unread: [
+		{
+			date: '2018-04-19 20:00:00',
+			title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
+		},
+		{
+			date: '2018-04-19 21:00:00',
+			title: '今晚12点整发大红包，先到先得'
+		}
+	],
+	read: [
+		{
+			date: '2018-04-19 20:00:00',
+			title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
+		}
+	],
+	recycle: [
+		{
+			date: '2018-04-19 20:00:00',
+			title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
+		}
+	]
+});
 
-interface Tree {
-	id: string;
-	label: string;
-	children?: Tree[];
-}
-
-const data: Tree[] = [
-	{
-		id: '1',
-		label: '系统首页'
-	},
-	{
-		id: '2',
-		label: '基础表格',
-		children: [
-			{
-				id: '15',
-				label: '编辑'
-			},
-			{
-				id: '16',
-				label: '删除'
-			}
-		]
-	},
-	{
-		id: '3',
-		label: 'tab选项卡'
-	},
-	{
-		id: '4',
-		label: '表单相关',
-		children: [
-			{
-				id: '5',
-				label: '基本表单'
-			},
-			{
-				id: '6',
-				label: '文件上传'
-			},
-			{
-				id: '7',
-				label: '三级菜单',
-				children: [
-					{
-						id: '8',
-						label: '富文本编辑器'
-					},
-					{
-						id: '9',
-						label: 'markdown编辑器'
-					}
-				]
-			}
-		]
-	},
-	{
-		id: '10',
-		label: '自定义图标'
-	},
-	{
-		id: '11',
-		label: 'schart图表'
-	},
-
-	{
-		id: '13',
-		label: '权限管理'
-	},
-	{
-		id: '14',
-		label: '支持作者'
-	}
-];
-
-const permiss = usePermissStore();
-
-// 获取当前权限
-const checkedKeys = ref<string[]>([]);
-const getPremission = () => {
-	// 请求接口返回权限
-	checkedKeys.value = permiss.defaultList[role.value];
+const handleRead = (index: number) => {
+	const item = state.unread.splice(index, 1);
+	state.read = item.concat(state.read);
 };
-getPremission();
-
-// 保存权限
-const tree = ref<InstanceType<typeof ElTree>>();
-const onSubmit = () => {
-	// 获取选中的权限
-	console.log(tree.value!.getCheckedKeys(false));
+const handleDel = (index: number) => {
+	const item = state.read.splice(index, 1);
+	state.recycle = item.concat(state.recycle);
 };
-
-const handleChange = (val: string[]) => {
-	tree.value!.setCheckedKeys(permiss.defaultList[role.value]);
+const handleRestore = (index: number) => {
+	const item = state.recycle.splice(index, 1);
+	state.read = item.concat(state.read);
 };
 </script>
 
-<style scoped>
-.tree-wrapper {
-	max-width: 500px;
+<style>
+.message-title {
+	cursor: pointer;
 }
-.label {
-	font-size: 14px;
+.handle-row {
+	margin-top: 30px;
 }
 </style>

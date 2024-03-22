@@ -16,7 +16,7 @@
 							</span>
 						</div>
 						<div class="info-name">{{ name }}</div>
-						<div class="info-desc">不可能！我的代码怎么可能会有bug！</div>
+						<div class="info-desc">壁画智慧修复全生命管理-管理员</div>
 					</div>
 				</el-card>
 			</el-col>
@@ -24,11 +24,13 @@
 				<el-card shadow="hover">
 					<template #header>
 						<div class="clearfix">
-							<span>修改密码</span>
+							<span>修改信息</span>
 						</div>
 					</template>
 					<el-form label-width="90px">
 						<el-form-item label="用户名："> {{ name }} </el-form-item>
+						<el-form-item label="单位"> 武汉大学 </el-form-item>
+						<el-form-item label="账号"> 123 </el-form-item>
 						<el-form-item label="旧密码：">
 							<el-input type="password" v-model="form.old"></el-input>
 						</el-form-item>

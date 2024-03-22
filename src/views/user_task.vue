@@ -4,15 +4,15 @@
 			<div class="search-box">
 				<el-input v-model="query.name" placeholder="用户名" class="search-input mr10" clearable></el-input>
 				<el-button type="primary" :icon="Search" @click="handleSearch">搜索</el-button>
-				<el-button type="warning" :icon="CirclePlusFilled" @click="visible = true">新增</el-button>
+				<!-- <el-button type="warning" :icon="CirclePlusFilled" @click="visible = true">新增</el-button> -->
 			</div>
 			<el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
 				<el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
 				<el-table-column prop="name" label="用户名" align="center"></el-table-column>
-				<el-table-column label="账户余额" align="center">
-					<template #default="scope">￥{{ scope.row.money }}</template>
+				<el-table-column label="用户账号" align="center">
+					<template #default="scope">{{ scope.row.money }}</template>
 				</el-table-column>
-				<el-table-column label="头像(查看大图)" align="center">
+				<el-table-column label="图片信息（查看图）" align="center">
 					<template #default="scope">
 						<el-image
 							class="table-td-thumb"
@@ -24,19 +24,19 @@
 						</el-image>
 					</template>
 				</el-table-column>
-				<el-table-column prop="address" label="地址" align="center"></el-table-column>
-				<el-table-column label="账户状态" align="center">
+				<el-table-column prop="address" label="是否提交" align="center"></el-table-column>
+				<el-table-column label="是否审核" align="center">
 					<template #default="scope">
 						<el-tag :type="scope.row.state ? 'success' : 'danger'">
-							{{ scope.row.state ? '正常' : '异常' }}
+							{{ scope.row.state ? '审核' : '未审核' }}
 						</el-tag>
 					</template>
 				</el-table-column>
 
-				<el-table-column prop="date" label="注册时间" align="center"></el-table-column>
+				<el-table-column prop="date" label="截止时间" align="center"></el-table-column>
 				<el-table-column label="操作" width="280" align="center">
 					<template #default="scope">
-						<el-button type="warning" size="small" :icon="View" @click="handleView(scope.row)">
+						<!-- <el-button type="warning" size="small" :icon="View" @click="handleView(scope.row)">
 							查看
 						</el-button>
 						<el-button
@@ -47,7 +47,7 @@
 							v-permiss="15"
 						>
 							编辑
-						</el-button>
+						</el-button> -->
 						<el-button
 							type="danger"
 							size="small"
@@ -92,8 +92,8 @@ import { ref, reactive } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { Delete, Edit, Search, CirclePlusFilled, View } from '@element-plus/icons-vue';
 import { fetchData } from '../api/index';
-import TableEdit from '../components/table-edit.vue';
-import TableDetail from '../components/table-detail.vue';
+import TableEdit from '../components/task-edit.vue';
+import TableDetail from '../components/task-detail.vue';
 
 interface TableItem {
 	id: number;
@@ -114,10 +114,73 @@ const query = reactive({
 const tableData = ref<TableItem[]>([]);
 const pageTotal = ref(0);
 // 获取表格数据
+// const getData = async () => {
+// 	const res = await fetchData();
+// 	tableData.value = res.data.list;
+// 	pageTotal.value = res.data.pageTotal || 50;
+// };
 const getData = async () => {
-	const res = await fetchData();
-	tableData.value = res.data.list;
-	pageTotal.value = res.data.pageTotal || 50;
+    // 模拟获取数据
+    const mockData = [
+        {
+            id: 1,
+            name: '邓x',
+            thumb: 'src\\pic\\1.jpg',
+            money: 100,
+            state: '审核',
+            date: '2024-03-22',
+            address: '已提交'
+        },
+        {
+            id: 2,
+            name: '邓x',
+            thumb: 'src\\pic\\2.jpg',
+            money: 100,
+            state: '',
+            date: '2024-03-20',
+            address: '未提交'
+        },
+        {
+            id: 3,
+            name: '李幸x',
+            thumb: 'src\\pic\\3.jpg',
+            money: 200,
+            state: '审核',
+            date: '2024-03-18',
+            address: '已提交'
+        },
+        {
+            id: 4,
+            name: '李幸x',
+            thumb: 'src\\pic\\4.jpg',
+            money: 200,
+            state: '审核',
+            date: '2024-03-15',
+            address: '已提交'
+        },
+        {
+            id: 5,
+            name: '邹xx',
+            thumb: 'src\\pic\\1.jpg',
+            money: 300,
+            state: '审核',
+            date: '2024-03-12',
+            address: '已提交'
+        },
+        {
+            id: 6,
+            name: 'other',
+            thumb: 'src\\pic\\2.jpg',
+            money: 350,
+            state: '',
+            date: '2024-03-10',
+            address: '未提交'
+        }
+    ];
+
+    // 将模拟数据赋值给表格数据和总数
+    tableData.value = mockData;
+    pageTotal.value = mockData.length;
 };
 getData();
 
