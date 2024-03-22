@@ -121,7 +121,7 @@
 <script setup lang="ts" name="dashboard_manager">
 import Schart from 'vue-schart';
 import { reactive } from 'vue';
-import imgurl from '../../assets/img/img.jpg';
+import imgurl from '../../assets/img/img2.jpg';
 
 const name = localStorage.getItem('ms_username');
 const role=localStorage.getItem('ms_role');

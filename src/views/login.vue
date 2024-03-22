@@ -90,21 +90,14 @@ export default {
     },
     login() {
       const self = this;
-      if (self.form.useremail == "admin" && self.form.userpwd == "123") {
+      if (self.form.useremail == "admin" && self.form.userpwd == "123" && self.form.selectedRole=='管理员') {
         ElMessage.success('登录成功');
         localStorage.setItem('ms_username', self.form.useremail);
         const keys = permiss.defaultList[self.form.useremail === 'admin' ? 'admin' : 'user'];
         permiss.handleSet(keys);
         localStorage.setItem('ms_keys', JSON.stringify(keys));
         localStorage.setItem('ms_role', self.form.selectedRole);
-        if (self.form.selectedRole=='管理员'){
-          this.$router.push('/');
-        }
-        else if (self.form.selectedRole=='审核员'){
-          this.$router.push('/manager_views');
-        }
-        
-
+        this.$router.push('/');
         // self.$axios({
         //   method: 'post',
         //   url: 'http://127.0.0.1:10520/api/user/login',
@@ -135,12 +128,21 @@ export default {
         //       console.log(err);
         //     })
 
-      } else if (self.form.useremail == "" || self.form.userpwd == "")
+      }else if (self.form.useremail == "dy" && self.form.userpwd == "123" && self.form.selectedRole=='审核员') {
+        ElMessage.success('登录成功');
+        localStorage.setItem('ms_username', self.form.useremail);
+        const keys = permiss.defaultList[self.form.useremail === 'admin' ? 'admin' : 'user'];
+        permiss.handleSet(keys);
+        localStorage.setItem('ms_keys', JSON.stringify(keys));
+        localStorage.setItem('ms_role', self.form.selectedRole);
+        this.$router.push('/manager_views');
+      }
+      else if (self.form.useremail == "" || self.form.userpwd == "")
       {
         ElMessage.error("填写不能为空！");
       }else
        {
-        ElMessage.error("用户账号或密码填写错误！");
+        ElMessage.error("用户账号/密码/权限填写错误！");
       }
     },
     register() {
