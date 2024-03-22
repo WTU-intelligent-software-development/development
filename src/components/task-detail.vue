@@ -16,10 +16,11 @@
 			<template #label> 是否提交 </template>
 			{{ data.state ? '是' : '否' }}
 		</el-descriptions-item>
-		<el-descriptions-item :span="2">
-			<template #label> 是否审核 </template>
-			{{ data.address ? '审核' : '未审核'}}
+		<el-descriptions-item >
+			<template #label> 审核情况 </template>
+			{{ data.address }}
 		</el-descriptions-item>
+
 		<el-descriptions-item>
 			<template #label> 截止日期 </template>
 			{{ data.date }}
