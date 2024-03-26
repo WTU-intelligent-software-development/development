@@ -1,41 +1,34 @@
 <template>
 	<el-descriptions title="" :column="2" border>
-		<!-- <el-descriptions-item>
-			<template #label> 序号 </template>
+		<el-descriptions-item>
+			<template #label> 用户ID </template>
 			{{ data.id }}
-		</el-descriptions-item> -->
+		</el-descriptions-item>
 		<el-descriptions-item>
 			<template #label> 用户名 </template>
 			{{ data.name }}
 		</el-descriptions-item>
-		<el-descriptions-item :span="2">
-			<template #label> 单位 </template>
-			{{ data.partment }}
-			<!-- {{ data.state? '管理人员' : '修复人员'  }} -->
-		</el-descriptions-item>
 		<el-descriptions-item>
-			<template #label> 用户账号</template>
+			<template #label> 账户余额 </template>
 			{{ data.money }}
 		</el-descriptions-item>
 		<el-descriptions-item>
-			<template #label> 用户密码 </template>
-			{{ data.address  }}
+			<template #label> 账户状态 </template>
+			{{ data.state ? '正常' : '异常' }}
 		</el-descriptions-item>
-
 		<el-descriptions-item :span="2">
-			<template #label> 权限 </template>
-			{{ data.state }}
-			<!-- {{ data.state? '管理人员' : '修复人员'  }} -->
+			<template #label> 地址 </template>
+			{{ data.address }}
 		</el-descriptions-item>
 		<el-descriptions-item>
-			<template #label> 提交日期 </template>
+			<template #label> 日期 </template>
 			{{ data.date }}
 		</el-descriptions-item>
-		<!-- <el-descriptions-item>
+		<el-descriptions-item>
 			<template #label> 头像 </template>
 			<img :src="data.thumb" style="width: 120px" alt="" />
-		</el-descriptions-item>-->
-	</el-descriptions> 
+		</el-descriptions-item>
+	</el-descriptions>
 </template>
 
 <script lang="ts" setup>
@@ -46,6 +39,3 @@ const props = defineProps({
 	}
 });
 </script>
-
-
-

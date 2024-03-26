@@ -1,0 +1,30 @@
+{
+  "id": "4478341",
+  "name": "no name",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1118",
+      "name": "文件",
+      "font_class": "wenjian",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1126",
+      "name": "文件夹",
+      "font_class": "wenjianjia",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "658956",
+      "name": "图片",
+      "font_class": "tupian",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    }
+  ]
+}

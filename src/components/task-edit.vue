@@ -6,30 +6,28 @@
 		<el-form-item label="用户账号" prop="money">
 			<el-input v-model.number="form.money"></el-input>
 		</el-form-item>
-		<el-form-item label="单位" prop="partment">
-			<select v-model="form.partment">
-  			<option disabled value="">请选择</option>
-  			<option>武汉大学</option>
-  			<option>武汉纺织大学</option>
-			</select>
+
+		<el-form-item label="是否提交" prop="state">
+			<el-switch
+				v-model="form.state"
+				:active-value="1"
+				:inactive-value="0"
+				active-text="是"
+				inactive-text="否"
+			></el-switch>
 		</el-form-item>
-		<el-form-item label="权限" prop="state">
+		<el-form-item label="审核情况" prop="address">
 			<select v-model="form.state">
   			<option disabled value="">请选择</option>
-  			<option>管理员</option>
-  			<option>修复师</option>
-  			<option>审核员</option>
+  			<option>已审核</option>
+  			<option>未审核</option>
+  			<option>返修</option>
 			</select>
-
-
 		</el-form-item>
-		<el-form-item label="用户密码" prop="address">
-			<el-input v-model="form.address" show-password></el-input>
-		</el-form-item>
-		<!-- <el-form-item label="注册日期" prop="date">
+		<el-form-item label="截止日期" prop="date">
 			<el-date-picker type="date" v-model="form.date" value-format="YYYY-MM-DD"></el-date-picker>
-		</el-form-item> -->
-		<!-- <el-form-item label="上传头像" prop="thumb">
+		</el-form-item>
+		<el-form-item label="上传图片" prop="thumb">
 			<el-upload
 				class="avatar-uploader"
 				action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
@@ -39,8 +37,8 @@
 			>
 				<img v-if="form.thumb" :src="form.thumb" class="avatar" />
 				<el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-			</el-upload> -->
-		<!-- </el-form-item> -->
+			</el-upload>
+		</el-form-item>
 		<el-form-item>
 			<el-button type="primary" @click="saveEdit(formRef)">保 存</el-button>
 		</el-form-item>
@@ -50,7 +48,7 @@
 <script lang="ts" setup>
 import { ElMessage, FormInstance, FormRules, UploadProps } from 'element-plus';
 import { ref } from 'vue';
-import { ElMessageBox } from 'element-plus';
+
 const props = defineProps({
 	data: {
 		type: Object,
@@ -70,45 +68,31 @@ const defaultData = {
 	id: '',
 	name: '',
 	address: '',
+	thumb: '',
 	money: 0,
 	state: 0,
-	date: new Date(),
-	partment:''
+	date: new Date()
 };
 
 const form = ref({ ...(props.edit ? props.data : defaultData) });
 
 const rules: FormRules = {
 	name: [{ required: true, message: '用户名', trigger: 'blur' }]
-
+	
 };
 const formRef = ref<FormInstance>();
-
-// 保存操作
 const saveEdit = (formEl: FormInstance | undefined) => {
-	// 二次确认保存
 	if (!formEl) return;
-	ElMessageBox.confirm('确定要修改吗？', '提示', {
-		type: 'warning'
-	})
-		.then(() => {
-			props.update(form.value);
-			ElMessage.success('保存成功！');
-		})
-		.catch(() => {});
+	formEl.validate(valid => {
+		if (!valid) return false;
+		props.update(form.value);
+		ElMessage.success('保存成功！');
+	});
 };
-// const saveEdit = (formEl: FormInstance | undefined) => {
-// 	if (!formEl) return;
-// 	formEl.validate(valid => {
-// 		if (!valid) return false;
-// 		props.update(form.value);
-// 		ElMessage.success('保存成功！');
-// 	});
-// };
 
-// const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
-// 	form.value.thumb = URL.createObjectURL(uploadFile.raw!);
-// };
+const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
+	form.value.thumb = URL.createObjectURL(uploadFile.raw!);
+};
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = rawFile => {
 	if (rawFile.type !== 'image/jpeg') {

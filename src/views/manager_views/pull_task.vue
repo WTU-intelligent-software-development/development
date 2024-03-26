@@ -42,9 +42,9 @@
 				<el-table-column label="操作" width="280" align="center">
 					<template #default="scope">
 						<el-button type="warning" size="small" :icon="View" @click="handleView(scope.row)">
-							查看
+							发布新任务
 						</el-button>
-						<el-button
+						<!-- <el-button
 							type="primary"
 							size="small"
 							:icon="Edit"
@@ -52,7 +52,7 @@
 							v-permiss="15"
 						>
 							编辑
-						</el-button>
+						</el-button> -->
 						<el-button
 							type="danger"
 							size="small"
@@ -60,7 +60,7 @@
 							@click="handleDelete(scope.$index)"
 							v-permiss="16"
 						>
-							删除
+							删除任务
 						</el-button>
 					</template>
 				</el-table-column>
@@ -96,9 +96,9 @@
 import { ref, reactive } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { Delete, Edit, Search, CirclePlusFilled, View } from '@element-plus/icons-vue';
-import { fetchData } from '../api/index';
-import TableEdit from '../components/table-edit.vue';
-import TableDetail from '../components/table-detail.vue';
+import { fetchData } from '../../api/index';
+import TableEdit from '../../components/table-edit.vue';
+import TableDetail from '../../components/table-detail.vue';
 
 interface TableItem {
 	id: number;

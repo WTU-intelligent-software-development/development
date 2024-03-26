@@ -45,9 +45,9 @@
 </template>
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useSidebarStore } from '../store/sidebar';
+import { useSidebarStore } from '../store/sidebar_ma';
 import { useRouter } from 'vue-router';
-import imgurl from '../assets/img/img.jpg';
+import imgurl from '../assets/img/img2.jpg';
 
 const username: string | null = localStorage.getItem('ms_username');
 const message: number = 2;
@@ -71,7 +71,7 @@ const handleCommand = (command: string) => {
 		localStorage.removeItem('ms_username');
 		router.push('/login');
 	} else if (command == 'user') {
-		router.push('/user');
+		router.push('/manager_views/user');
 	}
 };
 </script>

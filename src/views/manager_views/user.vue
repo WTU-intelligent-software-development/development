@@ -16,7 +16,7 @@
 							</span>
 						</div>
 						<div class="info-name">{{ name }}</div>
-						<div class="info-desc">壁画智慧修复全生命管理-管理员</div>
+						<div class="info-desc">壁画智慧修复全生命管理-审核员</div>
 					</div>
 				</el-card>
 			</el-col>
@@ -74,7 +74,7 @@
 import { reactive, ref } from 'vue';
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
-import avatar from '../assets/img/img.jpg';
+import avatar from '../../assets/img/img2.jpg';
 
 const name = localStorage.getItem('ms_username');
 const form = reactive({

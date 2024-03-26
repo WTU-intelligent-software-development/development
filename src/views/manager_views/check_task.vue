@@ -4,30 +4,15 @@
 			<div class="search-box">
 				<el-input v-model="query.name" placeholder="用户名" class="search-input mr10" clearable></el-input>
 				<el-button type="primary" :icon="Search" @click="handleSearch">搜索</el-button>
-				<el-button type="warning" :icon="CirclePlusFilled" @click="visible = true">新增</el-button>
+				<!-- <el-button type="warning" :icon="CirclePlusFilled" @click="visible = true">新增</el-button> -->
 			</div>
 			<el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
 				<el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-				<el-table-column prop="name" label="用户名" align="center"></el-table-column>
-				<el-table-column prop="partment" label="单位" align="center"></el-table-column>
-				<el-table-column label="用户账号" align="center">
+				<el-table-column prop="name" label="修复人员" align="center"></el-table-column>
+				<el-table-column label="修复人员账号" align="center">
 					<template #default="scope">{{ scope.row.money }}</template>
 				</el-table-column>
-	
-				<el-table-column prop="address" label="用户密码" align="center">
-				<template #default="scope">
-					<el-input v-model="scope.row.address"  :disabled="true" show-password></el-input>
-				</template>
-				</el-table-column>
-				<el-table-column label="权限" align="center">
-						<!-- <el-tag :type="scope.row.state ? 'success' : 'danger'">
-							{{ scope.row.state ? '修复师' : '用户' }}
-						</el-tag> -->
-						<template #default="scope">{{ scope.row.state }}</template>
-				</el-table-column>
-
-				<el-table-column prop="date" label="注册时间" align="center"></el-table-column>
-				<!-- <el-table-column label="头像(查看大图)" align="center">
+				<el-table-column label="任务信息（查看图）" align="center">
 					<template #default="scope">
 						<el-image
 							class="table-td-thumb"
@@ -36,13 +21,21 @@
 							:preview-src-list="[scope.row.thumb]"
 							preview-teleported
 						>
-						</el-image> -->
-					<!-- </template> -->
-				<!-- </el-table-column> -->
+						</el-image>
+					</template>
+				</el-table-column>
+				<el-table-column prop="address" label="是否提交" align="center"></el-table-column>
+				<el-table-column label="审核情况" align="center">
+					<template #default="scope">
+						{{ scope.row.state }}
+					</template>
+				</el-table-column>
+
+				<el-table-column prop="date" label="截止时间" align="center"></el-table-column>
 				<el-table-column label="操作" width="280" align="center">
 					<template #default="scope">
 						<el-button type="warning" size="small" :icon="View" @click="handleView(scope.row)">
-							查看
+							审核
 						</el-button>
 						<el-button
 							type="primary"
@@ -51,7 +44,7 @@
 							@click="handleEdit(scope.$index, scope.row)"
 							v-permiss="15"
 						>
-							编辑
+							<!-- 编辑
 						</el-button>
 						<el-button
 							type="danger"
@@ -59,7 +52,7 @@
 							:icon="Delete"
 							@click="handleDelete(scope.$index)"
 							v-permiss="16"
-						>
+						> -->
 							删除
 						</el-button>
 					</template>
@@ -96,19 +89,18 @@
 import { ref, reactive } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { Delete, Edit, Search, CirclePlusFilled, View } from '@element-plus/icons-vue';
-import { fetchData } from '../api/index';
-import TableEdit from '../components/table-edit.vue';
-import TableDetail from '../components/table-detail.vue';
+import { fetchData } from '../../api/index';
+import TableEdit from '../../components/task-edit.vue';
+import TableDetail from '../../components/task-detail.vue';
 
 interface TableItem {
 	id: number;
 	name: string;
-	// thumb: string;
+	thumb: string;
 	money: number;
 	state: string;
 	date: string;
 	address: string;
-	partment:string;
 }
 
 const query = reactive({
@@ -125,7 +117,70 @@ const pageTotal = ref(0);
 // 	tableData.value = res.data.list;
 // 	pageTotal.value = res.data.pageTotal || 50;
 // };
-// getData();
+const getData = async () => {
+    // 模拟获取数据
+    const mockData = [
+        {
+            id: 1,
+            name: '邓x',
+            thumb: 'src\\pic\\1.jpg',
+            money: 100,
+            state: '已通过',
+            date: '2024-03-22',
+            address: '已提交'
+        },
+        {
+            id: 2,
+            name: '邓x',
+            thumb: 'src\\pic\\2.jpg',
+            money: 100,
+            state: '未审核',
+            date: '2024-03-20',
+            address: '未提交'
+        },
+        {
+            id: 3,
+            name: '李幸x',
+            thumb: 'src\\pic\\3.jpg',
+            money: 200,
+            state: '已通过',
+            date: '2024-03-18',
+            address: '已提交'
+        },
+        {
+            id: 4,
+            name: '李幸x',
+            thumb: 'src\\pic\\4.jpg',
+            money: 200,
+            state: '返修中',
+            date: '2024-03-15',
+            address: '已提交'
+        },
+        {
+            id: 5,
+            name: '邹xx',
+            thumb: 'src\\pic\\1.jpg',
+            money: 300,
+            state: '已通过',
+            date: '2024-03-12',
+            address: '已提交'
+        },
+        {
+            id: 6,
+            name: 'other',
+            thumb: 'src\\pic\\2.jpg',
+            money: 350,
+            state: '未审核',
+            date: '2024-03-10',
+            address: '未提交'
+        }
+    ];
+
+    // 将模拟数据赋值给表格数据和总数
+    tableData.value = mockData;
+    pageTotal.value = mockData.length;
+};
+getData();
 
 // 查询操作
 const handleSearch = () => {
@@ -177,77 +232,6 @@ const handleView = (row: TableItem) => {
 	rowData.value = row;
 	visible1.value = true;
 };
-
-const getData = async () => {
-    // 模拟获取数据
-    const mockData = [
-        {
-            id: 1,
-            name: '邓x',
-            money: 100,
-			partment:'武汉纺织大学',
-            state: '修复师',
-            date: '2023-08-22',
-            address: '123'
-        },
-        {
-            id: 2,
-            name: '李幸x',
-            money: 100,
-			partment:'武汉纺织大学',
-            state: '修复师',
-            date: '2023-08-28',
-            address: '123'
-        },
-		{
-            id: 3,
-            name: 'admin',
-            money: 2173,
-			partment:'武汉大学',
-            state: '管理员',
-            date: '2023-01-20',
-            address: '123'
-        },
-		{
-            id: 4,
-            name: '邹xx',
-            money: 300,
-			partment:'武汉大学',
-            state: '修复师',
-            date: '2024-01-20',
-            address: '123'
-        },
-		{
-            id: 5,
-            name: 'other',
-            money: 350,
-			partment:'武汉大学',
-            state: '修复师',
-            date: '2024-01-20',
-            address: '123'
-        },
-		{
-            id: 6,
-            name: 'dy',
-            money: 110,
-			partment:'武汉大学',
-            state: '审核员',
-            date: '2024-03-20',
-            address: '123'
-        }
-        // 可以添加更多的默认数据项
-    ];
-
-    // 将模拟数据赋值给表格数据和总数
-    // tableData.value = mockData;
-    // pageTotal.value = mockData.length;
-	// 	const res = await fetchData();
-	//const res = await fetchData();
-	tableData.value = mockData;
-	pageTotal.value = mockData.length || 50;
-};
-getData();
-
 </script>
 
 <style scoped>

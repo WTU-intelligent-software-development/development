@@ -118,10 +118,10 @@
 	</div>
 </template>
 
-<script setup lang="ts" name="dashboard">
+<script setup lang="ts" name="dashboard_manager">
 import Schart from 'vue-schart';
 import { reactive } from 'vue';
-import imgurl from '../assets/img/img.jpg';
+import imgurl from '../../assets/img/img2.jpg';
 
 const name = localStorage.getItem('ms_username');
 const role=localStorage.getItem('ms_role');
@@ -129,18 +129,18 @@ const role=localStorage.getItem('ms_role');
 const options = {
 	type: 'bar',
 	title: {
-		text: '最近一周任务完成情况'
+		text: '邓x最近一周图片标注任务完成情况'
 	},
 	xRorate: 25,
 	labels: ['周一', '周二', '周三', '周四', '周五'],
 	datasets: [
 		{
 			label: '已发布',
-			data: [234, 278, 270, 190, 230]
+			data: [12, 23, 234, 0, 3]
 		},
 		{
 			label: '已提交',
-			data: [164, 178, 190, 135, 160]
+			data: [11, 23, 35, 123, 123]
 		},
 		{
 			label: '已审核',
@@ -151,17 +151,21 @@ const options = {
 const options2 = {
 	type: 'line',
 	title: {
-		text: '最近几个月任务完成趋势图'
+		text: '最近几个月修复人员任务完成趋势图'
 	},
 	labels: ['6月', '7月', '8月', '9月', '10月'],
 	datasets: [
 		{
-			label: '武汉纺织大学',
+			label: '邓x',
 			data: [234, 278, 270, 190, 230]
 		},
 		{
-			label: '武汉大学',
-			data: [164, 178, 150, 135, 160]
+			label: '李幸x',
+			data: [123, 12, 23, 325, 23]
+		},
+		{
+			label: '邹xx',
+			data: [123, 123, 456, 67, 23]
 		}
 	]
 };
