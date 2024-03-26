@@ -51,13 +51,13 @@
 
 			<div class="tab">
 				<ul>
-					<li><a href="javascript:;">最新</a></li>
-					<li><a href=" javascript:;" class="active">最热</a></li>
+					<li><a href="javascript:;" class="active">最新</a></li>
+					<li><a href=" javascript:;">最热</a></li>
 				</ul>
 			</div>
 
 			<div class="tab-content">
-				<ul class="item">
+				<ul class="item active">
 					<div>
 						<li>
 							<a href="#">如何提高项目交付质量</a>
@@ -82,7 +82,7 @@
 
 					</div>
 				</ul>
-				<ul class="item  active">
+				<ul class="item">
 					<li>如何交付项目</li>
 					<li>怎么画图</li>
 					<li>标注方法？</li>
@@ -266,7 +266,6 @@ span {
 
 
 .tab-content {
-	padding: 0 16px;
 	margin-top: 10px;
 	margin-bottom: 20px;
 }
@@ -279,44 +278,37 @@ span {
 	display: block;
 }
 
-.tab-content .item div {
-	width: 100%;
-	height: 30px;
-	font-size: 14px;
-	line-height: 30px;
-	display: flex;
-	flex-direction: row;
-	/* justify-content: center; */
-	align-items: center;
-	position: relative;
-}
-
-
 .tab-content .item li {
 	display: flex;
+	align-items: center;
+	line-height: 20px;
+	height: 20px;
 	position: relative;
 	width: 100%;
 	margin: 10px;
+
 }
 
 .tab-content .item li a {
+	position: absolute;
 	left: 0;
 	color: #000;
 }
 
-.tab-content .item p,
-.tab-content .item span {
+.tab-content .item li p,
+.tab-content .item li span {
 	position: absolute;
 	color: #b2b2b2;
 	border: none;
 	width: 90px;
 }
 
-.tab-content .item span {
+.tab-content .item li span {
 	right: 0;
+	margin-bottom: 3px;
 }
 
-.tab-content .item p {
+.tab-content .item li p {
 	right: 90px;
 }
 </style>
