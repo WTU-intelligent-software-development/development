@@ -5,47 +5,64 @@
 				<input type="text" class="searchInput" placeholder="请输入关键字..." onfocus="this.placeholder=''" onblur="this.placeholder='请输入关键字...'"/>
 			</div>
 			<div class="option">
-				<div class="userList"><a href="#">用户列表</a></div>
-				<div class="news"><a href="#">用户列表</a></div>
+				<a href="#lb"><input type="button" value="用户列表" class="userList"></a>
+				<a href="#xx"><input type="button" value="新消息" class="news"></a>
 			</div>
 		</div>
-	<ul>
+	<div class="dkj">
+	<div id="xx">
+	<ul id="xx">
 		<li>
 			<div class="summarizing"></div>
 			<div class="client">隔壁老王</div>
-			<div class="dialogue">你好啊！！！</div>
+			<div class="dialogue">可以帮我看一下吗</div>
+			<div class="time">4:01&nbsp;PM</div>
+			<div class="new">3</div>
 		</li>
 		<li>
 			<div class="summarizing"></div>
 			<div class="client">楼下老张</div>
 			<div class="dialogue">您现在可以试试看了</div>
+			<div class="time">昨天</div>
 		</li>
 		<li>
 			<div class="summarizing"></div>
 			<div class="client">对楼刘女士</div>
 			<div class="dialogue">我应该很快就能完成了</div>
+			<div class="time">三天前</div>
 		</li>
 		<li>
 			<div class="summarizing"></div>
 			<div class="client">kiity</div>
 			<div class="dialogue">你好啊！！！</div>
+			<div class="time">三天前</div>
+			<div class="new">1</div>
 		</li>
 		<li>
 			<div class="summarizing"></div>
 			<div class="client">sunny</div>
 			<div class="dialogue">你好啊！！！</div>
+			<div class="time">三天前</div>
+			<div class="new">2</div>
 		</li>
 		<li>
 			<div class="summarizing"></div>
 			<div class="client">money</div>
 			<div class="dialogue">你好啊！！！</div>
+			<div class="time">三天前</div>
+			<div class="new">1</div>
 		</li>
 		<li>
 			<div class="summarizing"></div>
 			<div class="client">honey</div>
 			<div class="dialogue">你好啊！！！</div>
+			<div class="time">一周前</div>
+			<div class="new">1</div>
 		</li>
 	</ul>
+    </div>
+	<div id="lb"></div>
+    </div>
 	</div>
 	<div class="chatInterface">
 		<div class="head">
@@ -127,35 +144,45 @@
 }
 .userList{
     float: left;	
-	width: 90px;
-	height: 26px;
+	width:130px;
+	height: 30px;
 	border-style:solid ;
 	border-color: rgb(189, 213, 189);
-	text-align:cconversation;
-	line-height: 26px;
-	padding-left: 30px;
+	text-align:center;
+	line-height: 30px;
+	padding-left: 9px;
 }
-.userList:active{
-	background-color: rgb(189, 213, 189);
+button:focus{
+	background-color: aquamarine;
 }
 .userList:hover{
 	background-color: rgb(189, 213, 189);
 }
 .news{
 	float: left;
-	width: 90px;
-	height: 26px;
+	width: 130px;
+	height: 30px;
 	border-style:solid ;
 	border-color: rgb(189, 213, 189);
-	text-align:cconversation;
-	line-height: 26px;
-	padding-left: 30px;
+	text-align:center;
+	line-height: 30px;
+	padding-left: 5px;
 }
 .news:hover{
 	background-color: rgb(189, 213, 189);
 }
 ul{ 
 	list-style-type: none;
+}
+.dkj{
+	height: 505px;
+    width: 320px;
+	overflow: hidden;
+}
+#lb{
+	height: 510px;
+    width: 320px;
+	background-color: black;
 }
 li:hover{
 	background-color: rgb(199, 218, 237);
@@ -193,6 +220,26 @@ ul li{
 	left: 80px;
 	top:40px;
 	font-size: small;
+}
+.time{
+	position: absolute;
+	right: 10px;
+	top: 13px;
+	font-size: small;
+	color: #807e7e;
+}
+.new{
+	border-radius: 100px;
+	background-color: red;
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	left: 280px;
+	top: 39px;
+	text-align: center;
+	line-height: 18px;
+	color: white;
+	font-size: smaller;
 }
 .chatInterface{
 	float: left;
@@ -351,11 +398,12 @@ ul li{
   font-weight: bolder;
 }
 .font{
-	top: 7px;
+	top: 4px;
 	position: absolute;
 	left: 550px;
 	width: 100px;
 	float: right;
+	font-size: medium;
 }
 input{
 	float: left;
