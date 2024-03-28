@@ -1,0 +1,12 @@
+com\dm\content\model\dto\QueryCourseParamsDto.class
+com\dm\content\model\po\TeachplanMedia.class
+com\dm\content\model\po\CoursePublish.class
+com\dm\content\model\po\CoursePublishPre.class
+com\dm\content\model\dto\AddCourseDto.class
+com\dm\content\model\po\CourseCategory.class
+com\dm\content\model\dto\CourseCategoryTreeDto.class
+com\dm\content\model\po\CourseMarket.class
+com\dm\content\model\po\CourseBase.class
+com\dm\content\model\po\CourseTeacher.class
+com\dm\content\model\po\Teachplan.class
+com\dm\content\model\dto\CourseBaseInfoDto.class
