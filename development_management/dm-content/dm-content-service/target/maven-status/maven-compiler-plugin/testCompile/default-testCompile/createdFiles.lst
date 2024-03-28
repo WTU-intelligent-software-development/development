@@ -1,0 +1,5 @@
+com\dm\content\CourseBaseInfoServiceTests.class
+com\dm\content\CourseCategoryServiceTests.class
+com\dm\content\CourseBaseMapperTests.class
+com\dm\content\CourseCategoryMapperTests.class
+com\dm\ContentApplication.class
