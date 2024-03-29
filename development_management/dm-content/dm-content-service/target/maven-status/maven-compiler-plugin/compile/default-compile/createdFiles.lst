@@ -1,0 +1,13 @@
+com\dm\content\mapper\CoursePublishMapper.class
+com\dm\content\mapper\CourseMarketMapper.class
+com\dm\content\mapper\CourseCategoryMapper.class
+com\dm\content\service\CourseCategoryService.class
+com\dm\content\mapper\CoursePublishPreMapper.class
+com\dm\content\mapper\CourseBaseMapper.class
+com\dm\content\mapper\CourseTeacherMapper.class
+com\dm\content\service\CourseBaseInfoService.class
+com\dm\content\config\MybatisPlusConfig.class
+com\dm\content\mapper\TeachplanMediaMapper.class
+com\dm\content\service\impl\CourseBaseInfoServiceImpl.class
+com\dm\content\mapper\TeachplanMapper.class
+com\dm\content\service\impl\CourseCategoryServiceImpl.class

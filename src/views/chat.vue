@@ -1,116 +1,484 @@
 <template>
-	<div class="container">
-		<el-tabs v-model="message">
-			<el-tab-pane :label="`未读消息(${state.unread.length})`" name="first">
-				<el-table :data="state.unread" :show-header="false" style="width: 100%">
-					<el-table-column>
-						<template #default="scope">
-							<span class="message-title">{{ scope.row.title }}</span>
-						</template>
-					</el-table-column>
-					<el-table-column prop="date" width="180"></el-table-column>
-					<el-table-column width="120">
-						<template #default="scope">
-							<el-button size="small" @click="handleRead(scope.$index)">标为已读</el-button>
-						</template>
-					</el-table-column>
-				</el-table>
-				<div class="handle-row">
-					<el-button type="primary">全部标为已读</el-button>
-				</div>
-			</el-tab-pane>
-			<el-tab-pane :label="`已读消息(${state.read.length})`" name="second">
-				<template v-if="message === 'second'">
-					<el-table :data="state.read" :show-header="false" style="width: 100%">
-						<el-table-column>
-							<template #default="scope">
-								<span class="message-title">{{ scope.row.title }}</span>
-							</template>
-						</el-table-column>
-						<el-table-column prop="date" width="180"></el-table-column>
-						<el-table-column width="120">
-							<template #default="scope">
-								<el-button type="danger" size="small" @click="handleDel(scope.$index)">删除</el-button>
-							</template>
-						</el-table-column>
-					</el-table>
-					<div class="handle-row">
-						<el-button type="danger">删除全部</el-button>
-					</div>
-				</template>
-			</el-tab-pane>
-			<el-tab-pane :label="`回收站(${state.recycle.length})`" name="third">
-				<template v-if="message === 'third'">
-					<el-table :data="state.recycle" :show-header="false" style="width: 100%">
-						<el-table-column>
-							<template #default="scope">
-								<span class="message-title">{{ scope.row.title }}</span>
-							</template>
-						</el-table-column>
-						<el-table-column prop="date" width="180"></el-table-column>
-						<el-table-column width="120">
-							<template #default="scope">
-								<el-button size="small" @click="handleRestore(scope.$index)">还原</el-button>
-							</template>
-						</el-table-column>
-					</el-table>
-					<div class="handle-row">
-						<el-button type="danger">清空回收站</el-button>
-					</div>
-				</template>
-			</el-tab-pane>
-		</el-tabs>
+	<div class="main-left">
+		<div class="container">
+			<div class="search">
+				<input type="text" class="searchInput" placeholder="请输入关键字..." onfocus="this.placeholder=''" onblur="this.placeholder='请输入关键字...'"/>
+			</div>
+			<div class="option">
+				<a href="#lb"><input type="button" value="用户列表" class="userList"></a>
+				<a href="#xx"><input type="button" value="新消息" class="news"></a>
+			</div>
+		</div>
+	<div class="dkj">
+	<div id="xx">
+	<ul id="xx">
+		<li>
+			<div class="summarizing"></div>
+			<div class="client">隔壁老王</div>
+			<div class="dialogue">可以帮我看一下吗</div>
+			<div class="time">4:01&nbsp;PM</div>
+			<div class="new">3</div>
+		</li>
+		<li>
+			<div class="summarizing"></div>
+			<div class="client">楼下老张</div>
+			<div class="dialogue">您现在可以试试看了</div>
+			<div class="time">昨天</div>
+		</li>
+		<li>
+			<div class="summarizing"></div>
+			<div class="client">对楼刘女士</div>
+			<div class="dialogue">我应该很快就能完成了</div>
+			<div class="time">三天前</div>
+		</li>
+		<li>
+			<div class="summarizing"></div>
+			<div class="client">kiity</div>
+			<div class="dialogue">你好啊！！！</div>
+			<div class="time">三天前</div>
+			<div class="new">1</div>
+		</li>
+		<li>
+			<div class="summarizing"></div>
+			<div class="client">sunny</div>
+			<div class="dialogue">你好啊！！！</div>
+			<div class="time">三天前</div>
+			<div class="new">2</div>
+		</li>
+		<li>
+			<div class="summarizing"></div>
+			<div class="client">money</div>
+			<div class="dialogue">你好啊！！！</div>
+			<div class="time">三天前</div>
+			<div class="new">1</div>
+		</li>
+		<li>
+			<div class="summarizing"></div>
+			<div class="client">honey</div>
+			<div class="dialogue">你好啊！！！</div>
+			<div class="time">一周前</div>
+			<div class="new">1</div>
+		</li>
+	</ul>
+    </div>
+	<div id="lb"></div>
+    </div>
+	</div>
+	<div class="chatInterface">
+		<div class="head">
+			<div class="avatar-top"></div>
+			<div class="nickname">昵称示例</div>
+			<div class="offline">离线--3小时前查看</div>
+		</div>
+		<div class="picture">
+			<div class="a">&nbsp;&nbsp;嗨zsy你怎么了?</div>
+			<div class="b">&nbsp;&nbsp;这个图标注的对吗</div>
+			<div class="c">&nbsp;&nbsp;我有点担心...</div>
+			<div class="d">&nbsp;&nbsp;我记得所有的事情，您就放心吧</div>
+		</div>
+		<div class="conversation">
+			<input type="text" class="enter" placeholder="在这里输入信息..." onfocus="this.placeholder=''" onblur="this.placeholder='在这里输入信息...'"/>
+			<div class="font">
+			<i class="iconfont">&#xe63b;</i>
+		    <i class="iconfont">&#xe610;</i>
+		    <i class="iconfont ">&#xe6e1;</i>
+		    <i class="iconfont ">&#xe652;</i>
+            </div>
+		</div>
+	    
+	</div>
+	<div class="main-right">
+		<div class="avatar-right"></div>
+		<div class="name">名称</div>
+		<div><a href="#" class="introduction">群简介</a></div>
+		<div class="app">
+			<i class="iconfont-app weixin">&#xe66c;</i>
+			<i class="iconfont-app douyin">&#xe600;</i>
+			<i class="iconfont-app weibo">&#xe66b;</i>
+		</div>
+		<table>
+			<tr>
+				<td>电话</td>
+				<td>+(86)45550110</td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td>info@undesigner.im</td>
+			</tr>
+			<tr>
+				<td>DOB</td>
+				<td>14.05.1992</td>
+			</tr>
+		</table>
 	</div>
 </template>
 
-<script setup lang="ts" name="tabs">
-import { ref, reactive } from 'vue';
-
-const message = ref('first');
-const state = reactive({
-	unread: [
-		{
-			date: '2018-04-19 20:00:00',
-			title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
-		},
-		{
-			date: '2018-04-19 21:00:00',
-			title: '今晚12点整发大红包，先到先得'
-		}
-	],
-	read: [
-		{
-			date: '2018-04-19 20:00:00',
-			title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
-		}
-	],
-	recycle: [
-		{
-			date: '2018-04-19 20:00:00',
-			title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
-		}
-	]
-});
-
-const handleRead = (index: number) => {
-	const item = state.unread.splice(index, 1);
-	state.read = item.concat(state.read);
-};
-const handleDel = (index: number) => {
-	const item = state.read.splice(index, 1);
-	state.recycle = item.concat(state.recycle);
-};
-const handleRestore = (index: number) => {
-	const item = state.recycle.splice(index, 1);
-	state.read = item.concat(state.read);
-};
-</script>
-
-<style>
-.message-title {
-	cursor: pointer;
+<style scoped>
+@font-face {
+  font-family: 'iconfont';  /* Project id 4481360 */
+  src: url('//at.alicdn.com/t/c/font_4481360_xl4hcv02gdq.woff2?t=1711450585113') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4481360_xl4hcv02gdq.woff?t=1711450585113') format('woff'),
+       url('//at.alicdn.com/t/c/font_4481360_xl4hcv02gdq.ttf?t=1711450585113') format('truetype');
 }
-.handle-row {
-	margin-top: 30px;
+.container{
+	width: 250px;
+	height: 5dvh;
+	position: relative;
+}
+.search{
+	position: absolute;
+	top:10px;
+	left: 10px;
+}
+.searchInput{
+	width: 285px; 
+	height: 30px; 
+	color: rgb(62, 62, 62);
+	border: rgb(181, 185, 185); 
+    border-style: solid;
+	outline: none;
+}
+.option{
+	position: absolute;
+	top: 55px;
+}
+.userList{
+    float: left;	
+	width:130px;
+	height: 30px;
+	border-style:solid ;
+	border-color: rgb(189, 213, 189);
+	text-align:center;
+	line-height: 30px;
+	padding-left: 9px;
+}
+button:focus{
+	background-color: aquamarine;
+}
+.userList:hover{
+	background-color: rgb(189, 213, 189);
+}
+.news{
+	float: left;
+	width: 130px;
+	height: 30px;
+	border-style:solid ;
+	border-color: rgb(189, 213, 189);
+	text-align:center;
+	line-height: 30px;
+	padding-left: 5px;
+}
+.news:hover{
+	background-color: rgb(189, 213, 189);
+}
+ul{ 
+	list-style-type: none;
+}
+.dkj{
+	height: 505px;
+    width: 320px;
+	overflow: hidden;
+}
+#lb{
+	height: 510px;
+    width: 320px;
+	background-color: black;
+}
+li:hover{
+	background-color: rgb(199, 218, 237);
+	border-left-style:solid ;
+	border-left-color: rgb(16, 27, 194);
+}
+.main-left{
+	width: 320px;
+	height: 606px;
+	background-color: rgb(255, 255, 255);
+	float: left;
+}
+ul li{
+   height: 70px;
+   width: 320px; 
+   border-bottom-style:solid;
+   border-bottom-color: rgb(200, 205, 205);
+   position: relative;
+}
+.summarizing{
+	background-image: url("image3.png");
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 15px;
+	left: 20px;
+}
+.client{
+	position: absolute;
+	left: 80px;
+	top:17px;
+}
+.dialogue{
+	position: absolute;
+	left: 80px;
+	top:40px;
+	font-size: small;
+}
+.time{
+	position: absolute;
+	right: 10px;
+	top: 13px;
+	font-size: small;
+	color: #807e7e;
+}
+.new{
+	border-radius: 100px;
+	background-color: red;
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	left: 280px;
+	top: 39px;
+	text-align: center;
+	line-height: 18px;
+	color: white;
+	font-size: smaller;
+}
+.chatInterface{
+	float: left;
+}
+.enter{
+	width: 500px; 
+	height: 30px; 
+	color: rgb(38, 39, 39);
+	border: rgb(226, 228, 228); 
+	background-color: rgb(219, 221, 222);
+    border-style: solid;
+	border-radius: 15px;
+	outline: none;
+}
+.head{
+	background-color: rgb(255, 255, 255);
+	width: 797px;
+	height: 60px;
+	position: relative;
+	border-bottom-style:solid ;
+	border-bottom-color:rgb(221, 212, 212) ;
+}
+.avatar-top{
+	background-image: url("image3.png");
+	width: 40px;
+	height: 40px;
+	position: relative;
+	top: 8px;
+	left: 20px;
+}
+.nickname{
+	position: absolute;
+	left:70px;
+	top:7px;
+}
+.offline{
+	position:absolute;
+	top:30px;
+	left: 70px;
+	font-size: xx-small;
+	color: rgb(142, 142, 143);
+}
+.picture{
+	background-color: white;
+	width: 797px;
+	height: 520px;
+	position: relative;
+}
+
+.a{
+	position: absolute;
+	top: 60px;
+	left: 50px;
+	width: 150px;
+	height: 40PX;
+	background-color: white;
+	box-shadow: 5px 2px 5px 5px rgb(149, 146, 146);
+	border-radius: 20px;
+	line-height: 40px;
+}
+.a::before {  
+  content: "";
+  display: block;
+  position: absolute;
+  left: 2px;  
+  top: 26px;   
+  border-width: 7.3px;
+  border-style: dashed  solid  dashed  dashed;
+  border-color: white white transparent transparent;
+  transform: rotate(179deg);
+  box-shadow: 1px -6px 3px rgb(149, 146, 146);
+}
+.b{
+	position: absolute;
+	top: 150px;
+	left: 600px;
+	width: 150PX;
+	height: 40PX;
+	background-color: rgb(247, 116, 116);
+	border-radius: 20px;
+	line-height: 40px;
+	box-shadow: 5px 2px 5px 5px rgb(231, 190, 190);
+}
+.b::before {  
+  content: "";
+  display: block;
+  position: absolute;
+  right: 2px;  
+  top: 25.5px;   
+  border-width: 7.7px;
+  border-style: dashed  solid  dashed  dashed;
+  border-color: rgb(247, 116, 116) rgb(247, 116, 116) transparent transparent;
+  transform: rotate(90deg);
+  box-shadow: 6px -5px 3px rgb(231, 190, 190);
+}
+.c{
+	position: absolute;
+	top: 220px;
+	left: 50PX;
+	width: 150PX;
+	height: 40PX;
+	background-color: white;
+	box-shadow: 5px 2px 5px 5px rgb(149, 146, 146);
+	border-radius: 20px;
+	line-height: 40px;
+}
+.c::before {  
+  content: "";
+  display: block;
+  position: absolute;
+  left: 2px;  
+  top: 26px;   
+  border-width: 7.3px;
+  border-style: dashed  solid  dashed  dashed;
+  border-color: white white transparent transparent;
+  transform: rotate(179deg);
+  box-shadow: 1px -6px 3px rgb(149, 146, 146);
+}
+.d{
+	position: absolute;
+	top: 350px;
+	left: 500px;
+	width: 250PX;
+	height: 40PX;
+	background-color: rgb(247, 116, 116);
+	border-radius: 20px;
+	line-height: 40px;
+	box-shadow: 5px 2px 5px 5px rgb(231, 190, 190);
+}
+.d::before {  
+  content: "";
+  display: block;
+  position: absolute;
+  right: 2px;  
+  top: 25.5px;   
+  border-width: 7.7px;
+  border-style: dashed  solid  dashed  dashed;
+  border-color: rgb(247, 116, 116) rgb(247, 116, 116) transparent transparent;
+  transform: rotate(90deg);
+  box-shadow: 6px -5px 3px rgb(231, 190, 190);
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 30px;
+  font-style: normal;
+  letter-spacing: 30px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor:default;
+  color: rgb(87, 86, 86);
+}
+.iconfont:hover{
+  transform: scale(1.3);
+  color: red;
+  cursor:default;
+  font-weight: bolder;
+}
+.font{
+	top: 4px;
+	position: absolute;
+	left: 550px;
+	width: 100px;
+	float: right;
+	font-size: medium;
+}
+input{
+	float: left;
+}
+.conversation{
+	position: relative;
+}
+.main-right{
+	float: right;
+	width: 270px;
+	height: 600px;
+	background-color: rgb(255, 255, 255);
+	position: relative;
+}
+.name{
+	height: 300px;
+	position: absolute;
+	top:200px;
+	left:125px;
+	font-size: larger;
+}
+.avatar-right{
+	background-image: url("image2.png");
+	background-position: -26px;
+	width: 150px;
+	height: 150px;
+	border: 1px solid black;
+	border-radius: 100%;
+	position: relative;
+	top: 40px;
+	left: 65px;
+}
+.introduction{
+	position: absolute;
+	top:270px;
+	left:125px;
+	font-size: small;
+	color: black;
+}
+a{
+	color: black;
+}
+.app{
+	width: 140px;
+	height: 70px;
+	position: relative;
+	top: 160px;
+	left: 60px;
+}
+.iconfont-app{
+	font-family: "iconfont" !important;
+  font-size: 30px;
+  font-style: normal;
+  letter-spacing: 30px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor:default;
+}
+.weixin{
+	color: rgb(46, 215, 12);
+}
+.weibo{
+	color: rgb(251, 8, 8);
+}
+.main-right table{
+	top:380px;
+	left: 30px;
+    color: rgb(124, 123, 123);
+	width: 220px; 
+	height: 100px;
+	border-top-style: solid;
+	border-top-color: rgb(223, 227, 229);
+	border-bottom-style: solid;
+	border-bottom-color: rgb(211, 214, 216);
+	position: absolute;
+	text-align: right;
 }
 </style>

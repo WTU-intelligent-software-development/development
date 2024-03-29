@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>dm-parent</artifactId>
+        <groupId>com.dm</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../dm-parent</relativePath>
+    </parent>
+    <artifactId>dm-system</artifactId>
+    <name>dm-system</name>
+    <description>dm-system</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>dm-system-api</module>
+        <module>dm-system-service</module>
+        <module>dm-system-model</module>
+    </modules>
+</project>

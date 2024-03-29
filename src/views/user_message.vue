@@ -9,25 +9,10 @@
 			<el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
 				<el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
 				<el-table-column prop="name" label="用户名" align="center"></el-table-column>
-				<el-table-column prop="partment" label="单位" align="center"></el-table-column>
-				<el-table-column label="用户账号" align="center">
-					<template #default="scope">{{ scope.row.money }}</template>
+				<el-table-column label="账户余额" align="center">
+					<template #default="scope">￥{{ scope.row.money }}</template>
 				</el-table-column>
-	
-				<el-table-column prop="address" label="用户密码" align="center">
-				<template #default="scope">
-					<el-input v-model="scope.row.address"  :disabled="true" show-password></el-input>
-				</template>
-				</el-table-column>
-				<el-table-column label="权限" align="center">
-						<!-- <el-tag :type="scope.row.state ? 'success' : 'danger'">
-							{{ scope.row.state ? '修复师' : '用户' }}
-						</el-tag> -->
-						<template #default="scope">{{ scope.row.state }}</template>
-				</el-table-column>
-
-				<el-table-column prop="date" label="注册时间" align="center"></el-table-column>
-				<!-- <el-table-column label="头像(查看大图)" align="center">
+				<el-table-column label="头像(查看大图)" align="center">
 					<template #default="scope">
 						<el-image
 							class="table-td-thumb"
@@ -36,9 +21,19 @@
 							:preview-src-list="[scope.row.thumb]"
 							preview-teleported
 						>
-						</el-image> -->
-					<!-- </template> -->
-				<!-- </el-table-column> -->
+						</el-image>
+					</template>
+				</el-table-column>
+				<el-table-column prop="address" label="地址" align="center"></el-table-column>
+				<el-table-column label="账户状态" align="center">
+					<template #default="scope">
+						<el-tag :type="scope.row.state ? 'success' : 'danger'">
+							{{ scope.row.state ? '正常' : '异常' }}
+						</el-tag>
+					</template>
+				</el-table-column>
+
+				<el-table-column prop="date" label="注册时间" align="center"></el-table-column>
 				<el-table-column label="操作" width="280" align="center">
 					<template #default="scope">
 						<el-button type="warning" size="small" :icon="View" @click="handleView(scope.row)">
@@ -103,12 +98,11 @@ import TableDetail from '../components/table-detail.vue';
 interface TableItem {
 	id: number;
 	name: string;
-	// thumb: string;
+	thumb: string;
 	money: number;
 	state: string;
 	date: string;
 	address: string;
-	partment:string;
 }
 
 const query = reactive({
@@ -120,12 +114,12 @@ const query = reactive({
 const tableData = ref<TableItem[]>([]);
 const pageTotal = ref(0);
 // 获取表格数据
-// const getData = async () => {
-// 	const res = await fetchData();
-// 	tableData.value = res.data.list;
-// 	pageTotal.value = res.data.pageTotal || 50;
-// };
-// getData();
+const getData = async () => {
+	const res = await fetchData();
+	tableData.value = res.data.list;
+	pageTotal.value = res.data.pageTotal || 50;
+};
+getData();
 
 // 查询操作
 const handleSearch = () => {
@@ -177,77 +171,6 @@ const handleView = (row: TableItem) => {
 	rowData.value = row;
 	visible1.value = true;
 };
-
-const getData = async () => {
-    // 模拟获取数据
-    const mockData = [
-        {
-            id: 1,
-            name: '邓x',
-            money: 100,
-			partment:'武汉纺织大学',
-            state: '修复师',
-            date: '2023-08-22',
-            address: '123'
-        },
-        {
-            id: 2,
-            name: '李幸x',
-            money: 100,
-			partment:'武汉纺织大学',
-            state: '修复师',
-            date: '2023-08-28',
-            address: '123'
-        },
-		{
-            id: 3,
-            name: 'admin',
-            money: 2173,
-			partment:'武汉大学',
-            state: '管理员',
-            date: '2023-01-20',
-            address: '123'
-        },
-		{
-            id: 4,
-            name: '邹xx',
-            money: 300,
-			partment:'武汉大学',
-            state: '修复师',
-            date: '2024-01-20',
-            address: '123'
-        },
-		{
-            id: 5,
-            name: 'other',
-            money: 350,
-			partment:'武汉大学',
-            state: '修复师',
-            date: '2024-01-20',
-            address: '123'
-        },
-		{
-            id: 6,
-            name: 'dy',
-            money: 110,
-			partment:'武汉大学',
-            state: '审核员',
-            date: '2024-03-20',
-            address: '123'
-        }
-        // 可以添加更多的默认数据项
-    ];
-
-    // 将模拟数据赋值给表格数据和总数
-    // tableData.value = mockData;
-    // pageTotal.value = mockData.length;
-	// 	const res = await fetchData();
-	//const res = await fetchData();
-	tableData.value = mockData;
-	pageTotal.value = mockData.length || 50;
-};
-getData();
-
 </script>
 
 <style scoped>

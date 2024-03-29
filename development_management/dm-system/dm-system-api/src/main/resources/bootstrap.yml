@@ -1,0 +1,20 @@
+server:
+  servlet:
+    context-path: /system
+  port: 63110
+#微服务配置
+spring:
+  application:
+    name: system-service
+
+# 日志文件配置路径
+logging:
+  config: classpath:log4j2-dev.xml
+
+# swagger 文档配置
+swagger:
+  title: "全周期生命管理系统"
+  description: "全周期生命管理系统"
+  base-package: com.dm.content
+  enabled: true
+  version: 1.0.0
