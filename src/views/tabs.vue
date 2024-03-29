@@ -97,10 +97,11 @@
 		</div>
 
 		<!-- 问题发布 -->
-		<el-row>
-			<!-- @click="visible = true" -->
-			<el-button type="warning">提问</el-button>
-		</el-row>
+		<el-button type="warning" @click="visible = true">提问</el-button>
+		<el-dialog v-model="visible" width="900px" destroy-on-close :close-on-click-modal="false" @close="closeDialog">
+			<TableEdit :data="rowData" :edit="idEdit" :update="updateData" />
+		</el-dialog>
+
 	</div>
 
 </template>
@@ -120,6 +121,34 @@ for (let i = 0; i < tab.length; i++) {
 		document.querySelector(`.tab-content .item:nth-child(${i + 1})`).classList.add('active')
 	})
 }
+
+import TableEdit from '../components/tabs-table.vue';
+import { ref, reactive } from 'vue';
+let idx: number = -1;
+const visible = ref(false);
+const idEdit = ref(false);
+const rowData = ref({});
+interface TableItem {
+	id: number;
+	name: string;
+	// thumb: string;
+	money: number;
+	state: string;
+	date: string;
+	address: string;
+	partment: string;
+}
+const tableData = ref<TableItem[]>([]);
+const updateData = (row: TableItem) => {
+	idEdit.value ? (tableData.value[idx] = row) : tableData.value.unshift(row);
+	console.log(tableData.value);
+	closeDialog();
+};
+const closeDialog = () => {
+	visible.value = false;
+	idEdit.value = false;
+};
+
 </script>
 <style>
 @font-face {
