@@ -2,10 +2,8 @@
 
 	<!-- 
 		未完成：
-		最新最热更换
 		问题页码
 		点击文章标题进入文章页面
-		点击提问生成发布问题弹窗
 		点击搜索进行搜索
 		点击搜索词和标签进行搜索
 
@@ -48,46 +46,49 @@
 		<!-- 中间主体 -->
 		<div class="discuss" style="height: 100%;">
 			<span class="title">问答专区</span>
+			<el-tabs v-model="activeName" @tab-click="handleClick">
+				<el-tab-pane label="最新" name="first">
+					<div class="tab-content">
+						<ul class="item active">
+							<div>
+								<li>
+									<a href="#">如何提高项目交付质量</a>
+									<p>梁晓峰</p>
+									<span>2024-03-05</span>
+								</li>
+							</div>
+							<div>
+								<li>
+									<a href="#">这个图怎么画</a>
+									<p>李三</p>
+									<span>2024-03-20</span>
+								</li>
 
-			<div class="tab">
-				<ul>
-					<li><a href="javascript:;" class="active">最新</a></li>
-					<li><a href=" javascript:;">最热</a></li>
-				</ul>
-			</div>
+							</div>
+							<div>
+								<li>
+									<a href="#">图片的标注方法？</a>
+									<p>王芳</p>
+									<span>2024-02-28</span>
+								</li>
 
-			<div class="tab-content">
-				<ul class="item active">
-					<div>
-						<li>
-							<a href="#">如何提高项目交付质量</a>
-							<p>梁晓峰</p>
-							<span>2024-03-05</span>
-						</li>
+							</div>
+						</ul>
 					</div>
-					<div>
-						<li>
-							<a href="#">这个图怎么画</a>
-							<p>李三</p>
-							<span>2024-03-20</span>
-						</li>
+				</el-tab-pane>
+				<el-tab-pane label="最热" name="second">
+					<div class="tab-content">
 
+						<ul class="item active">
+							<li>如何交付项目</li>
+							<li>怎么画图</li>
+							<li>标注方法？</li>
+						</ul>
 					</div>
-					<div>
-						<li>
-							<a href="#">图片的标注方法？</a>
-							<p>王芳</p>
-							<span>2024-02-28</span>
-						</li>
+				</el-tab-pane>
+			</el-tabs>
 
-					</div>
-				</ul>
-				<ul class="item">
-					<li>如何交付项目</li>
-					<li>怎么画图</li>
-					<li>标注方法？</li>
-				</ul>
-			</div>
+			<div class="line"></div>
 		</div>
 		<!-- 分页导航 -->
 		<div class="block" style="margin-bottom: 20px;">
@@ -106,28 +107,13 @@
 
 </template>
 <script setup lang="ts" name="tabs">
-
-// 获取导航栏
-const tab = document.querySelectorAll('.tab a')
-// 获取切换内容的数组
-// const pane = document.querySelectorAll('.tab-content .item')
-for (let i = 0; i < tab.length; i++) {
-	tab[i].addEventListener('mouseenter', function () {
-		// 排他思想（移除类+添加类）
-		document.querySelector('.tab .active').classList.remove('active')
-		this.classList.add('active')
-		document.querySelector('.tab-content .active').classList.remove('active')
-		// 对应序号显示
-		document.querySelector(`.tab-content .item:nth-child(${i + 1})`).classList.add('active')
-	})
-}
-
 import TableEdit from '../components/tabs-table.vue';
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 let idx: number = -1;
 const visible = ref(false);
 const idEdit = ref(false);
 const rowData = ref({});
+const activeName = 'first';
 interface TableItem {
 	id: number;
 	name: string;
@@ -147,6 +133,10 @@ const updateData = (row: TableItem) => {
 const closeDialog = () => {
 	visible.value = false;
 	idEdit.value = false;
+};
+
+const handleClick = (tab, event) => {
+	console.log(tab, event);
 };
 
 </script>
